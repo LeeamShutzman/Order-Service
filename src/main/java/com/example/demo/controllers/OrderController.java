@@ -39,7 +39,8 @@ public class OrderController {
 	public List<Order> getAllOrders(){
 		return orderService.findAll();
 	}
-
+	
+	
 	@GetMapping()
 	public List<Order> getOrdersByCustomer(@RequestParam String customerID) {
 		return orderService.findByCustomerID(customerID);
@@ -58,9 +59,11 @@ public class OrderController {
 		return orderService.add(order);
 	}
 	
+
 	@DeleteMapping("/deleteProduct{id}") //localhost:portNum/orders/deleteProduct
 	public void deleteById(@PathVariable("id") long orderID){
 		orderService.deleteById(orderID);
 	}
+	
 	
 }
