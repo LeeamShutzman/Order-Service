@@ -21,7 +21,10 @@ import com.example.demo.services.OrderService;
 @RequestMapping("orders") //localhost:portNum/categories
 public class OrderController {
 	private OrderService orderService;
-	
+
+	/***************************************************************/
+	//Constructors, Getters, and Setters
+
 	public OrderController(OrderService orderService) {
 		super();
 		this.orderService = orderService;
@@ -34,35 +37,38 @@ public class OrderController {
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
-	
-	@GetMapping("/all") //localhost:portNum/categories/all
+
+	/***************************************************************/
+	//Service endpoint mapping
+
+	//Add an Order
+	@PostMapping("/add") //localhost:portNum/orders/add
+	public Order addOrder(@RequestBody Order order) {
+		return orderService.addOrder(order);
+	}
+
+	//View all Orders
+	@GetMapping("/all") //localhost:portNum/orders/all
 	public List<Order> getAllOrders(){
 		return orderService.findAll();
 	}
-	
-	
-	@GetMapping()
-	public List<Order> getOrdersByCustomer(@RequestParam String customerID) {
-		return orderService.findByCustomerID(customerID);
-	}
-	
-	
-	@GetMapping("OrderID{id}")
-	public Optional<Order> getOrderByID(@PathVariable("id") long OrderID) {
-		return orderService.findByID(OrderID);
-		
+
+	//View Order by ID
+	@GetMapping("getOrderByID") //localhost:portNum/orders/getOrderByID?orderID=#
+	public Optional<Order> getOrderByID(@RequestParam long orderID) {
+		return orderService.findByOrderID(orderID);
 	}
 
-	
-	@PostMapping("/add") //localhost:portNum/categories/add
-	public Order addOrder(@RequestBody Order order) {
-		return orderService.add(order);
+	//View Orders by Customer
+	@GetMapping("getOrdersByCustomerID") //localhost:portNum/orders/getOrdersByCustomerID?customerID=#
+	public List<Order> getOrdersByCustomerID(@RequestParam String customerID) {
+		return orderService.findOrdersByCustomerID(customerID);
 	}
-	
 
-	@DeleteMapping("/deleteProduct{id}") //localhost:portNum/orders/deleteProduct
-	public void deleteById(@PathVariable("id") long orderID){
-		orderService.deleteById(orderID);
+	//Delete an Order
+	@DeleteMapping("delete") //localhost:portNum/orders/delete?orderID=#
+	public void deleteOrder(@RequestParam long orderID){
+		orderService.deleteOrder(orderID);
 	}
 	
 	

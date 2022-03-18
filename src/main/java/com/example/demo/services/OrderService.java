@@ -15,6 +15,9 @@ public class OrderService {
 	@Autowired
 	private OrderRepository orderRepository;
 
+	/***************************************************************/
+	//Constructors, Getters, and Setters
+
 	public OrderService(OrderRepository orderRepository) {
 		super();
 		this.orderRepository = orderRepository;
@@ -27,27 +30,34 @@ public class OrderService {
 	public void setOrderRepository(OrderRepository orderRepository) {
 		this.orderRepository = orderRepository;
 	}
-	
+
+	/***************************************************************/
+	//Repository Method Calls
+
+	//Add an Order
+	public Order addOrder(Order order) {
+		return orderRepository.save(order);
+	}
+
+	//View all Orders
 	public List<Order> findAll(){
 		return orderRepository.findAll();
 	}
-	
-	public Order add(Order order) {
-		return orderRepository.save(order);
+
+	//View Order by ID
+	public Optional<Order> findByOrderID(long orderId) {
+		return orderRepository.findById(orderId);
 	}
-	
-	public List<Order> findByCustomerID(String customerID){
+
+	//View Orders by Customer
+	public List<Order> findOrdersByCustomerID(String customerID){
 		return orderRepository.findByCustomerID(customerID);
 	}
 
-	
-	public void deleteById(long orderId){
+	//Delete an Order
+	public void deleteOrder(long orderId){
 		orderRepository.deleteById(orderId);
 	}
-	
-	public Optional<Order> findByID(long orderId) {
-		return orderRepository.findById(orderId);
-	}
-	
+
 }
 
