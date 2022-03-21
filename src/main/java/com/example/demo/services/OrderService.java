@@ -1,8 +1,11 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +62,21 @@ public class OrderService {
 		orderRepository.deleteById(orderId);
 	}
 
+    public Order updateOrder(long orderID, Order order) {
+		try {
+			Order temp = orderRepository.findById(orderID).get();
+			if(Objects.nonNull(order.getCustomerID()) && !"".equalsIgnoreCase(order.getCustomerID())){
+				temp.setCustomerID(order.getCustomerID());
+			}
+			if(Objects.nonNull(order.getOrderDate())){
+				temp.setDate(order.getOrderDate());
+			}
+			return orderRepository.save(temp);
+		}
+		catch (NoSuchElementException e){
+			System.out.println("No order with that ID was found");
+			return new Order();
+		}
+    }
 }
 
