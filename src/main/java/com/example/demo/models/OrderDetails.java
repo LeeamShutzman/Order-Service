@@ -1,45 +1,20 @@
 package com.example.demo.models;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.Table;
-
-class orderDetailsPK{
-	private long orderID;
-	private long productID;
-	public orderDetailsPK() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public orderDetailsPK(long orderID, long productID) {
-		super();
-		this.orderID = orderID;
-		this.productID = productID;
-	}
-	
-}
 @Entity
-@IdClass(com.example.demo.models.OrderDetails.class)
+@IdClass(OrderDetailsPK.class)
 @Table(name="ORDERDETAILS")
-public class OrderDetails implements Serializable{
+public class OrderDetails {
 
 	@Id
+	@JoinColumn(name="order_id", referencedColumnName="ORDERID")
 	private long orderID;
 	
 	@Id
+	@JoinColumn(name="product_id", referencedColumnName="PRODUCTID")
 	private long productID;
-	
-	@JoinColumns({
-		@JoinColumn(name="order_id", referencedColumnName="ORDERID"),
-		@JoinColumn(name="product_id", referencedColumnName="PRODUCTID")
-	})
-	
+
 	@Column(name="QUANTITY")
 	private int quantity;
 
@@ -85,9 +60,5 @@ public class OrderDetails implements Serializable{
 	public String toString() {
 		return "OrderDetails [orderID=" + orderID + ", productID=" + productID + ", quantity=" + quantity + "]";
 	}
-
-	
-	
-	
 
 }

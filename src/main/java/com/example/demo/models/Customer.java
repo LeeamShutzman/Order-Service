@@ -1,16 +1,13 @@
 package com.example.demo.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="CUSTOMERS")
 public class Customer {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JoinColumn(name="customer_id", referencedColumnName="CUSTOMERID")
 	private String customerID;
 	@Column(name="COMPANYNAME")

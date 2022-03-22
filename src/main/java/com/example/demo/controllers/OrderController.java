@@ -3,12 +3,9 @@ package com.example.demo.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.models.OrderDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.models.Category;
 import com.example.demo.models.Order;
-import com.example.demo.repositories.OrderRepository;
 import com.example.demo.services.OrderService;
 
 @RestController
